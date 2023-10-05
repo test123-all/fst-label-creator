@@ -45,13 +45,13 @@ from pathlib import Path
 from fstlabelcreator import script_functions
 
 # Set the paths
-path_for_generated_files = Path(f'{file_directory_path}/_generated')
-path_for_generated_files_text_label_from_excel_sheet : Path = Path(f'{path_for_generated_files}/text_label_from_excel_sheet')
-path_to_sensor_excel_sheet: Path = Path(f'{file_directory_path}/info_Messtechnik_Uebersicht_FST_Wetterich.xlsx')
+path_for_generated_files: Path = Path(f'./_generated')
+path_for_generated_files_text_label_from_excel_sheet: Path = Path(f'{path_for_generated_files}/text_label_from_excel_sheet')
+path_to_text_excel_sheet: Path = Path(f'./id_list.xlsx')
 
 script_functions.generate_label_sites_from_excel_sheets(path_for_generated_files= path_for_generated_files_text_label_from_excel_sheet,
-                                                                path_to_text_excel_sheet= path_to_text_excel_sheet,
-                                                                supported_template= script_functions.SUPPORTED_TEMPLATES['L6011'])
+                                                        path_to_text_excel_sheet= path_to_text_excel_sheet,
+                                                        supported_template= script_functions.SUPPORTED_TEMPLATES['L6011'])
 ```
 - If you want to create PID labels for sensors please use the following code and adjust the used paths accordingly:
 
@@ -61,13 +61,13 @@ from pathlib import Path
 from fstlabelcreator import script_functions
 
 # Set the paths
-path_for_generated_files = Path(f'{file_directory_path}/_generated')
-path_to_text_excel_sheet: Path = Path(f'{file_directory_path}/id_list.xlsx')
-path_for_generated_files_pID_label_from_excel_sheet : Path = Path(f'{path_for_generated_files}/pID_label_from_excel_sheet')
+path_for_generated_files: Path = Path(f'./_generated')
+path_for_generated_files_pID_label_from_excel_sheet: Path = Path(f'{path_for_generated_files}/pID_label_from_excel_sheet')
+path_to_sensor_excel_sheet: Path = Path(f'./info_Messtechnik_Uebersicht_FST_Wetterich.xlsx')
 
 script_functions.generate_sensor_pID_label_sites_from_excel_sheets(path_for_generated_files= path_for_generated_files_pID_label_from_excel_sheet,
-                                                                path_to_sensor_excel_sheet= path_to_sensor_excel_sheet,
-                                                                responsible_WiMi= 'Rexer')
+                                                                   path_to_sensor_excel_sheet= path_to_sensor_excel_sheet,
+                                                                   responsible_WiMi= 'Rexer')
 ```
 
 
@@ -75,10 +75,10 @@ script_functions.generate_sensor_pID_label_sites_from_excel_sheets(path_for_gene
 
 ## Supported Templates
 Currently supported are the following templates:
-- #TODO: Check wether AveryZweckform uses the same template on every different product range with the same number of labels on each DIN A4 page (for example 65, 27, 48 and so on)
-1. B7651: AveryZweckform B7651-? Ultra-Resistente Etiketten 38mmx21mm (65 labels per DIN A4 page)
-2. L6011: AveryZweckform L6011-? Typenschild-Etiketten 63.5mmx29.6mm (27 labels per DIN A4 page)
-3. L6009: AveryZweckform L6009-? Typenschild-Etiketten 45.7mmx21.2mm (48 labels per DIN A4 page)
+- #TODO: Check whether AveryZweckform uses the same template on every different product range with the same number of labels on each DIN A4 page (for example 65, 27, 48 and so on)
+1. </b> 'B7651'</b>: AveryZweckform B7651-? Ultra-Resistente Etiketten 38mmx21mm (65 labels per DIN A4 page)
+2. </b> 'L6011'</b>: AveryZweckform L6011-? Typenschild-Etiketten 63.5mmx29.6mm (27 labels per DIN A4 page)
+3. </b> 'L6009'</b>: AveryZweckform L6009-? Typenschild-Etiketten 45.7mmx21.2mm (48 labels per DIN A4 page)
 
 ## Improvement Suggestions
 - Overall refactoring and restructuring of the code (especially if the software should be extended in the future)
@@ -86,19 +86,22 @@ Currently supported are the following templates:
 - A function that fits the pid template on different given or label sizes. On larger objects bigger labels with bigger text could be needed to be able to find and read the text from a bigger distance.
 - Write a CLI for the program
 - Add a CI/CD testing pipeline for this repository (please choose a docker image where you can install inkscape) and extend the tests
-- Add additional label sizes to the supported_templates
+- Add a function that automatically test fits a generated site on the used template .pdf/.png ()
+- Add additional label sizes to the supported_templates / Add a contributing guide on how other people can add a new template and what they need to provide for it to be accepted
 - Improve the outputs off the software, maybe add the logging module that prints the output properly. The placement of the labels should still be displayed e.g. "Place label xy on site_z at (...)", "Starting new site" "Generate QR-Code ...", ..
 - Extend the placing function, that places the labels on the site, by an index that describes where the first label should be placed on somewhere in the middle of the site. To be able to reuse label sites that didn't got used up completely
 - If this software should get extended and published in the future add a table of contents to this README.md and properly structure it
 - If this software should get extended and published in the future add a contributing file and split it in one part for contributing/refactoring code and one for contributing sizes for new templates that should get supported
 - If a CI/CD pipeline is added for this repository and even more URLs should be used in the documentation add a URL checker to check this URLS if they still resolve properly
+- Is a parsing function viable to have more control over the formatting?
 
 ## Current To Do List:
 - test the path of inkscape on a windows machine
 - test the other two "supported" label sizes "L6011-?" and "L6009-?"
 - Work on/handle the #TODO comments in the code base
-- Take a look after the incskape bug
+- Take a look at the incskape bug
 - Convert the use of pandas to load the excel sheets to openpyxl as it is used in the background anyway to be able to drop pandas as dependency
+- Implement a function that creates directories recurseviely if they shouldn't exist when the user references a save-to location.
 
 ## Dependencies:
 This python package uses the following third party python packages and software as dependency:
