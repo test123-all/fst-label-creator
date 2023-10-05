@@ -32,13 +32,14 @@ For installation introductions on windows with venv please have a look at the ne
 
 
 ## How to use this package?
-Please make sure you followed the installation intructions properly.
+1. Please make sure you followed the installation intructions properly.
 The example excel sheets can be found inside the './tests/' directory.
 
-Next create a 'test.py' Python file inside this folder.
+2. Next create a 'test.py' Python file inside this folder.
 
-If you want to create labels with a heading use the following code and please adjust the used paths accordingly:
-'''
+3. 
+- If you want to create labels with a heading use the following code and please adjust the used paths accordingly:
+```python
 from pathlib import Path
 
 from fstlabelcreator import script_functions
@@ -51,11 +52,10 @@ path_to_sensor_excel_sheet: Path = Path(f'{file_directory_path}/info_Messtechnik
 script_functions.generate_label_sites_from_excel_sheets(path_for_generated_files= path_for_generated_files_text_label_from_excel_sheet,
                                                                 path_to_text_excel_sheet= path_to_text_excel_sheet,
                                                                 supported_template= script_functions.SUPPORTED_TEMPLATES['L6011'])
-'''
+```
+- If you want to create PID labels for sensors please use the following code and adjust the used paths accordingly:
 
-
-If you want to create PID labels for sensors please use the following code and adjust the used paths accordingly:
-'''
+```python
 from pathlib import Path
 
 from fstlabelcreator import script_functions
@@ -66,9 +66,10 @@ path_to_text_excel_sheet: Path = Path(f'{file_directory_path}/id_list.xlsx')
 path_for_generated_files_pID_label_from_excel_sheet : Path = Path(f'{path_for_generated_files}/pID_label_from_excel_sheet')
 
 script_functions.generate_sensor_pID_label_sites_from_excel_sheets(path_for_generated_files= path_for_generated_files_pID_label_from_excel_sheet,
-                                                                   path_to_sensor_excel_sheet= path_to_sensor_excel_sheet,
-                                                                   responsible_WiMi= 'Rexer')
-'''
+                                                                path_to_sensor_excel_sheet= path_to_sensor_excel_sheet,
+                                                                responsible_WiMi= 'Rexer')
+```
+
 
 # TODO: Add pictures how the output of the different functions looks like -> vlt. auf die pdf verweisen?
 
