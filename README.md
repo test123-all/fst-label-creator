@@ -22,20 +22,20 @@ For installation introductions on windows with venv please have a look at the ne
 ### On Windows with venv:
 0. Please make sure, as already mentioned, you have python3 (>3.10 https://www.python.org/) and inkscape (https://inkscape.org/) installed
 1. Clone or download this FST Label Creator git-repository
-2. Please navigate with your command line program inside the folder where this README.md is located (for example with "cd C:\Users\Neumeier\Desktop\fst-label-creator")
-3. Inside this folder run with the Windows command line "cmd" the command "py -m venv env". (This will create a virtual environment, that won't mess up your system python installation)
-4. Next run the command ".\env\Scripts\activate" to activate that environment
-5. After setting up the virtual environment you are ready to install the neccessary packages with the command "py -m pip install qrcode reportlab svglib pandas openpyxl"
-6. Next you are able to run the script with "python .\main.py"
+2. Please navigate with your command line program inside the folder where this README.md is located (for example with `cd C:\Users\Neumeier\Desktop\fst-label-creator`)
+3. Inside this folder run with the Windows command line "cmd" the command `py -m venv env`. (This will create a virtual environment, that won't mess up your system python installation)
+4. Next run the command `.\env\Scripts\activate` to activate that environment
+5. After setting up the virtual environment you are ready to install the neccessary packages with the command `py -m pip install qrcode reportlab svglib pandas openpyxl`
+6. Next you are able to run the scripts with for example `python .\main.py`
 
-7. At the end please deactivate the virtual environment with ".\env\Scripts\deactivate"
+7. At the end please deactivate the virtual environment with `.\env\Scripts\deactivate`
 
 
 ## How to use this package?
 1. Please make sure you followed the installation intructions properly.
-The example excel sheets can be found inside the './tests/' directory.
+The example excel sheets can be found inside the `./tests/` directory.
 
-2. Next create a 'test.py' Python file inside this folder.
+2. Next create a `test.py` Python file inside this folder.
 
 3.
 - If you want to bulk create labels with a heading, like this,
@@ -77,16 +77,12 @@ script_functions.generate_sensor_pID_label_sites_from_excel_sheets(path_for_gene
                                                                    responsible_WiMi= 'Rexer')
 ```
 
-
-
-# TODO: Add pictures how the output of the different functions looks like -> vlt. auf die pdf verweisen?
-
 ## Supported Templates
 Currently supported are the following templates:
 - #TODO: Check whether AveryZweckform uses the same template on every different product range with the same number of labels on each DIN A4 page (for example 65, 27, 48 and so on)
-1. </b> 'B7651'</b>: AveryZweckform B7651-? Ultra-Resistente Etiketten 38mmx21mm (65 labels per DIN A4 page)
-2. </b> 'L6011'</b>: AveryZweckform L6011-? Typenschild-Etiketten 63.5mmx29.6mm (27 labels per DIN A4 page)
-3. </b> 'L6009'</b>: AveryZweckform L6009-? Typenschild-Etiketten 45.7mmx21.2mm (48 labels per DIN A4 page)
+1. <b> 'B7651'</b>: AveryZweckform B7651-? Ultra-Resistente Etiketten 38mmx21mm (65 labels per DIN A4 page)
+2. <b> 'L6011'</b>: AveryZweckform L6011-? Typenschild-Etiketten 63.5mmx29.6mm (27 labels per DIN A4 page)
+3. <b> 'L6009'</b>: AveryZweckform L6009-? Typenschild-Etiketten 45.7mmx21.2mm (48 labels per DIN A4 page)
 
 ## Improvement Suggestions
 - Overall refactoring and restructuring of the code (especially if the software should be extended in the future)
@@ -102,6 +98,9 @@ Currently supported are the following templates:
 - If this software should get extended and published in the future add a contributing file and split it in one part for contributing/refactoring code and one for contributing sizes for new templates that should get supported
 - If a CI/CD pipeline is added for this repository and even more URLs should be used in the documentation add a URL checker to check this URLS if they still resolve properly
 - Is a parsing function viable to have more control over the formatting?
+- Add use cases as examples to this repository
+- Move the supported templates inside their own file(s) or even directory
+- Add a section that describes the used excel sheet format conventions in more detail, that the users know how to use and modify them
 
 ## Current To Do List:
 - test the path of inkscape on a windows machine
