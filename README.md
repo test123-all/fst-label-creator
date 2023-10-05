@@ -90,12 +90,22 @@ Currently supported are the following templates:
 - Extend the placing function, that places the labels on the site, by an index that describes where the first label should be placed on somewhere in the middle of the site. To be able to reuse label sites that didn't got used up completely
 - If this software should get extended and published in the future add a table of contents to this README.md and properly structure it
 - If this software should get extended and published in the future add a contributing file and split it in one part for contributing/refactoring code and one for contributing sizes for new templates that should get supported
+- If a CI/CD pipeline is added for this repository and even more URLs should be used in the documentation add a URL checker to check this URLS if they still resolve properly
 
 ## Current To Do List:
 - test the path of inkscape on a windows machine
 - test the other two "supported" label sizes "L6011-?" and "L6009-?"
 - Work on/handle the #TODO comments in the code base
 - Take a look after the incskape bug
+- Convert the use of pandas to load the excel sheets to openpyxl as it is used in the background anyway to be able to drop pandas as dependency
+
+## Dependencies:
+This python package uses the following third party python packages and software as dependency:
+- qrcode (https://pypi.org/project/qrcode/ [Last Access at 03th October 2023])
+- reportlab open source version (https://pypi.org/project/reportlab/ [Last Access at 03th October 2023], https://docs.reportlab.com/reportlab/userguide/ch1_intro/ [Last Access at 03th October 2023])
+- svglib (https://pypi.org/project/svglib/ [Last Access at 03th October 2023])
+- pandas + openpyxl (to load the data of the excel sheets) (https://pypi.org/project/openpyxl/ [Last Access at 03th October 2023])
+- Inkscape (https://inkscape.org/ [Last Access at 03th October 2023])
 
 ## Current Maintainers:
 sebastian.neumeier[at]stud.tu-darmstadt.de <br>
