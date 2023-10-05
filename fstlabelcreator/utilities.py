@@ -132,7 +132,10 @@ def place_labels_on_DINA4_template(path_for_generated_files: [str, Path],
     seiten_counter: int = 1
 
     canvas = Canvas(f'{path_for_generated_files}/seite{seiten_counter}.pdf', pagesize=DINA4_SITE_SIZE)
-    for item in resolved_path.glob('*.svg'):
+    converted_svg_labels_list: list = list(resolved_path.glob('*.svg'))
+    converted_svg_labels_list.sort()
+
+    for item in converted_svg_labels_list:
         # Calculate position
         position_x = measured_start_position[0] + (column_position_counter - 1) * measured_x_distance_per_step
         position_y = measured_start_position[1] + (row_position_counter - 1) * measured_y_distance_per_step
