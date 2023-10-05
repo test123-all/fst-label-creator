@@ -4,7 +4,7 @@ This is the repository of the FST Label Creator software/python package. The goa
 <br>
 This software also supports placing those labels onto a DIN A4 .pdf site template, to be able to print the .pdf sites, and therefore your own labels. Also bulk creation and placing with data read out of excel tables is supported. <br>
 Currently this software only supports the bulk creation of sensor p_ID labels and normal text labels where the text gets encoded inside the QR code instead of the p_ID URL with data read out of excel tables.
-For visible examples please have a look at the 'How to use this package?'-section.
+For visible examples for the different label models please have a look at the 'How to use this package?'-section. Examples for full .pdf pages with placed labels and a test fit background can be found behind the following hyperlinks: [p_ID sensor labels full page test fit](SUPPORTED_TEMPLATES/test_fit_template_AveryB7651.png) and [labels with heading full page test fit](SUPPORTED_TEMPLATES/test_fit_template_AveryL6009.png).
 
 <b> DISCLAIMER: </b> <br>
 This software is in a early testing and validating stage. It is not commented out sufficient, the functional segregation isn't good and in conclusion the function and variable names might be the subject to siginificant change in the future. All this mentioned reasons are the explaination why this software doesn't provide a API with backwardscompatibility yet. Please keep that in mind, when you use this software.
@@ -37,8 +37,12 @@ The example excel sheets can be found inside the './tests/' directory.
 
 2. Next create a 'test.py' Python file inside this folder.
 
-3. 
-- If you want to create labels with a heading use the following code and please adjust the used paths accordingly:
+3.
+- If you want to bulk create labels with a heading, like this,
+<img src="doc/example_text_label_your_heading.png"  width="300">
+
+from a excel sheet use the following code and please adjust the used paths accordingly:
+
 ```python
 from pathlib import Path
 
@@ -53,7 +57,10 @@ script_functions.generate_label_sites_from_excel_sheets(path_for_generated_files
                                                         path_to_text_excel_sheet= path_to_text_excel_sheet,
                                                         supported_template= script_functions.SUPPORTED_TEMPLATES['L6011'])
 ```
-- If you want to create PID labels for sensors please use the following code and adjust the used paths accordingly:
+- If you want to bulk create PID labels for sensors, like this,
+<img src="doc/example_pid_label_0184ebd9-988b-7bba-8203-06be5cf6bbb8.png"  width="300">
+
+from a excel sheet please use the following code and adjust the used paths accordingly:
 
 ```python
 from pathlib import Path
@@ -69,6 +76,7 @@ script_functions.generate_sensor_pID_label_sites_from_excel_sheets(path_for_gene
                                                                    path_to_sensor_excel_sheet= path_to_sensor_excel_sheet,
                                                                    responsible_WiMi= 'Rexer')
 ```
+
 
 
 # TODO: Add pictures how the output of the different functions looks like -> vlt. auf die pdf verweisen?
