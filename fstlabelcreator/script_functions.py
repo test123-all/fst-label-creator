@@ -26,7 +26,7 @@ class SupportedTemplate:
         self.MEASURED_y_DISTANCE_PER_STEP = MEASURED_y_DISTANCE_PER_STEP
 
 SUPPORTED_TEMPLATES = {
-    ## AVERY Zweckform B7651-50 (Sensor p_ID Labels)
+    ## AVERY Zweckform B7651 (Sensor p_ID Labels)
     'B7651': SupportedTemplate(LABEL_SIZE=  (3.8 * cm, 2.1 * cm),
                                RECOMMENDED_MAX_LABEL_PRINT_SIZE=  (3.35 * cm, 1.65 * cm),
                                ROW_MAX_LABEL_COUNT=  13,
@@ -35,7 +35,7 @@ SUPPORTED_TEMPLATES = {
                                MEASURED_x_DISTANCE_PER_STEP=  4.06 * cm,
                                MEASURED_y_DISTANCE_PER_STEP=  -2.12 * cm,
     ),
-    ## AVERY Zweckform L6011-8
+    ## AVERY Zweckform L6011
     'L6011': SupportedTemplate(LABEL_SIZE=  (6.35 * cm, 2.96 * cm),
                                RECOMMENDED_MAX_LABEL_PRINT_SIZE=  (5.9 * cm, 2.5 * cm),
                                ROW_MAX_LABEL_COUNT=  9,
@@ -44,14 +44,14 @@ SUPPORTED_TEMPLATES = {
                                MEASURED_x_DISTANCE_PER_STEP=  6.6 * cm,
                                MEASURED_y_DISTANCE_PER_STEP=  -2.96 * cm,
                                ),
-    ## AVERY Zweckform L6009-20
+    ## AVERY Zweckform L6009
     'L6009': SupportedTemplate(LABEL_SIZE=  (4.57 * cm, 2.12 * cm),
-                               RECOMMENDED_MAX_LABEL_PRINT_SIZE=  (4.08 * cm, 1.63 * cm),
+                               RECOMMENDED_MAX_LABEL_PRINT_SIZE=  (4.08 * cm, 1.62 * cm),
                                ROW_MAX_LABEL_COUNT=  12,
                                COLUMN_MAX_LABEL_COUNT=  4,
-                               MEASURED_START_POSITION=  (1.19 * cm, (29.7 - 4.06) * cm),
+                               MEASURED_START_POSITION=  (1.19 * cm, (29.7 - 4.022) * cm),
                                MEASURED_x_DISTANCE_PER_STEP=  4.83 * cm,
-                               MEASURED_y_DISTANCE_PER_STEP=  -2.12 * cm,
+                               MEASURED_y_DISTANCE_PER_STEP=  -2.117 * cm,
                                ),
 }
 
@@ -172,10 +172,15 @@ def generate_label_sites_from_excel_sheets(path_for_generated_files: [str, Path]
         input_text = df['ID'][i]
         heading = df['heading'][i]
 
+        # TODO: Is a parsing function viable to have more control over the formatting?
+        file_name = df["heading"][i]
+        if '<br/>' in file_name:
+            file_name = df["heading"][i].replace('<br/>', '')
+
         utilities.generate_text_QR_code_label(input_text= input_text,
                                               heading_text= heading,
                                               label_size= supported_template.RECOMMENDED_MAX_LABEL_PRINT_SIZE,
-                                              file_name= df["heading"][i],
+                                              file_name= file_name,
                                               qr_code_directoy_path= qr_codes_directory_path,
                                               label_directory_path= labels_directory_path)
 
