@@ -7,8 +7,9 @@ Currently this software only supports the bulk creation of sensor p_ID labels an
 For visible examples for the different label models please have a look at the 'How to use this package?'-section. Examples for full .pdf pages with placed labels and a test fit background can be found behind the following hyperlinks: [p_ID sensor labels full page test fit](SUPPORTED_TEMPLATES/test_fit_template_AveryB7651.png) and [labels with heading full page test fit](SUPPORTED_TEMPLATES/test_fit_template_AveryL6009.png).
 
 <b> DISCLAIMER: </b> <br>
-This software is in a early testing and validating stage. It is not commented out sufficient, the functional segregation isn't good and in conclusion the function and variable names might be the subject to siginificant change in the future. All this mentioned reasons are the explaination why this software doesn't provide a API with backwardscompatibility yet. Please keep that in mind, when you use this software.
+1. This software is in a early testing and validating stage. It is not commented out sufficient, the functional segregation isn't good and in conclusion the function and variable names might be the subject to siginificant change in the future. All this mentioned reasons are the explaination why this software doesn't provide a API with backwardscompatibility yet. Please keep that in mind, when you use this software.
 The decision to leave this software as it is in the current state without refactoring is made because in order for this software to be of high impact it needs to be possible to load the data from somewhere off the internet and to efficiently label all types of objects like materials and test-objects (not just sensors). The closest to think of that could solve this problem is RDF + Ontologies. These topics are still under research and therefore software that gets developed at the FST that uses these technologies in early concept stages. Also the feasibility and effectiveness of this technologiers for the choosen goals still need to be proven. In order to prevent time and cost intesive addditional work, that possibly could be rendered somehow useless or inpracticable in the future, the decision to prove the feasibility and effectiveness of the rdf software first is made.
+2. The persitent ID namespace (`https://w3id.org/fst/resource/`) for the sensor labels is currently hardcoded into the `script_functions.py` file and therefore your generated sensor labels will point only to this persitent ID namespace. A #TODO to remove this limitation and give differnt users more liberties is already added.
 
 
 ## Installation Instructions:
@@ -110,6 +111,7 @@ Currently supported are the following templates:
 - Take a look at the incskape bug
 - Convert the use of pandas to load the excel sheets to openpyxl as it is used in the background anyway to be able to drop pandas as dependency
 - Implement a function that creates directories recurseviely if they shouldn't exist when the user references a save-to location.
+- Make the currently hardcoded persistent namespace (`https://w3id.org/fst/resource/`) inside the `script_functions.py` file a function argument. That will enable users outside the FST to also generate their own sensor labels.
 
 ## Dependencies:
 This python package uses the following third party python packages and software as dependency:
