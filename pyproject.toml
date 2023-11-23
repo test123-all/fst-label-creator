@@ -6,7 +6,7 @@ authors = ["Sebastian Neumeier <sebastian.neumeier@mail.de>"]
 readme = "README.md"
 packages = [{include = "fstlabelcreator"}]
 
-[tool.poetry.depedencies]
+[tool.poetry.dependencies]
 python = ">=3.09, <4"
 pandas = {extras = ["openpyxl"], version = "^2.0.3"}
 openpyxl = "^3.1.2"
