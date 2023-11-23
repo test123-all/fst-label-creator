@@ -174,8 +174,12 @@ def generate_label_sites_from_excel_sheets(path_for_generated_files: [str, Path]
 
         # TODO: Is a parsing function viable to have more control over the formatting?
         file_name = df["heading"][i]
+	# FIXME: TODO: That 'heading' fields can contain a lot of special characters that are forbidden in file names. 
+	# The software throws a weird error in this case. So a parsing function that checks the content of the 'heading'
+	# field and parses it into a accepatable file name needs to be written or it should be implemented that the files
+	# of the single labels follow a standart naming schema..
         if '<br/>' in file_name:
-            file_name = df["heading"][i].replace('<br/>', '')
+            file_name = df["heading"][i].replace('<br/>', '').replace(':', '').replace(',', '').replace('/', '')
 
         utilities.generate_text_QR_code_label(input_text= input_text,
                                               heading_text= heading,
