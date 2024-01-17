@@ -99,6 +99,7 @@ Currently supported are the following templates:
 - If this software should get extended and published in the future add a contributing file and split it in one part for contributing/refactoring code and one for contributing sizes for new templates that should get supported
 - If a CI/CD pipeline is added for this repository and even more URLs should be used in the documentation add a URL checker to check this URLS if they still resolve properly
 - Is a parsing function viable to have more control over the formatting?
+- The ```generate_QR_code(...)```-function outputs a svg file without .svg ending. The user has to set it by herself/himself. Since it is always .svg, set it in the code and check the input from the user. Throw a warning/error (might be discussed) if the user uses a unresolveable '.' and probably tries to force a file format. Unresolveable means: The '.' and '..' are also used to navigate the directory structure and if the can't be resolved into a correct directory path it probably is a user error or the '.' of the file format.
 - Add use cases as examples to this repository
 - Move the supported templates inside their own file(s) or even directory
 - Add a section that describes the used excel sheet format conventions in more detail, that the users know how to use and modify them
