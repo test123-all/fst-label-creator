@@ -111,9 +111,7 @@ Currently supported are the following templates:
 - Convert the use of pandas to load the excel sheets to openpyxl as it is used in the background anyway to be able to drop pandas as dependency
 - Implement a function that creates directories recurseviely if they shouldn't exist when the user references a save-to location.
 - Make the currently hardcoded persistent namespace (`https://w3id.org/fst/resource/`) inside the `script_functions.py` file a function argument. That will enable users outside the FST to also generate their own sensor labels.
-- The 'generate_label_sites_from_excel_sheets(...)' function takes the content of the 'heading' column as file name. That fields can contain a lot of special characters that are forbidden in file names. The software throws a weird
-error in this case. So a parsing function that checks the content of the 'heading' field and parses it into a accepatable file name needs to be written or it should be implemented that the files of the single labels follow a standart
-naming schema.
+- The 'generate_label_sites_from_excel_sheets(...)' function takes the content of the 'heading' column as file name. That fields can contain a lot of special characters that are forbidden in file names. The software throws a weird error in this case. So a parsing function that checks the content of the 'heading' field and parses it into a accepatable file name needs to be written or it should be implemented that the files of the single labels follow a standart naming schema.
 
 ## Dependencies:
 This python package uses the following third party python packages and software as dependency:
