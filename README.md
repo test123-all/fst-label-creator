@@ -21,17 +21,31 @@ If you just a user of the library you can get along with the "venv" program, tha
 For installation introductions on windows with venv please have a look at the next sub section.
 
 ### On Windows with venv:
--1. Please make sure, as already mentioned, you have python3 (>3.10 https://www.python.org/) and inkscape (https://inkscape.org/) installed.
-0. Please also make sure to add Inkscape to your windows PATH. To do this please run cmd as administrator with the command ```setx /M "%PATH%;<<path_to_your_incscape_installation>>"```. For example: ```setx /M "%PATH%;C:\Program Files\Inkscape\bin\"```. After that please make sure to **restart your computer** and run ```inkscape -V``` in the command line. That should run sccessfuly and return something like ```Inkscape 1.2.1 (9c6d41e410, 2022-07-14)```.
-If you can't set the 
-1. Clone or download this FST Label Creator git-repository
-2. Please navigate with your command line program inside the folder where this README.md is located (for example with `cd C:\Users\Neumeier\Desktop\fst-label-creator`)
-3. Inside this folder run with the Windows command line "cmd" the command `py -m venv env`. (This will create a virtual environment, that won't mess up your system python installation)
-4. Next run the command `.\env\Scripts\activate` to activate that environment
-5. After setting up the virtual environment you are ready to install the neccessary packages with the command `py -m pip install qrcode reportlab svglib pandas openpyxl`
-6. Next you are able to run the scripts with for example `python .\main.py`
+Introductions:
 
-7. At the end please deactivate the virtual environment with `.\env\Scripts\deactivate`
+0. Please make sure, as already mentioned, you have python3 (>3.10 https://www.python.org/) and inkscape (https://inkscape.org/) installed.
+1. Also please make sure to add Inkscape to your windows PATH. To do this please run the ```cmd``` as administrator and run the command 
+    ```
+    setx /M "%PATH%;<<path_to_your_incscape_installation>>"
+    ```
+    with your Inkscape path. For example:
+    ```
+    setx /M "%PATH%;C:\Program Files\Inkscape\bin\"
+    ```
+    . After that please make sure to **restart your computer** and run ```inkscape -V``` in the command line. That should run successfully and return something like 
+    ``` cmd
+    C:\Users\sebastian>inkscape -V
+    Inkscape 1.2.1 (9c6d41e410, 2022-07-14)
+    ```
+    . If you don't have administrator rights on your computer please contact your administrator or search on the internet on how to set the user environment variables.
+2. Clone or download this FST Label Creator git-repository
+3. Please navigate with your command line program inside the folder where this README.md is located (for example with `cd C:\Users\Neumeier\Desktop\fst-label-creator`)
+4. Inside this folder run with the Windows command line "cmd" the command `py -m venv env`. (This will create a virtual environment, that won't mess up your system python installation)
+5. Next run the command `.\env\Scripts\activate` to activate that environment
+6. After setting up the virtual environment you are ready to install the neccessary packages with the command `py -m pip install qrcode reportlab svglib pandas openpyxl`
+7. Next you are able to run the scripts with for example `python .\main.py`
+
+8. At the end please deactivate the virtual environment with `.\env\Scripts\deactivate`
 
 
 ## How to use this package?
