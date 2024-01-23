@@ -21,7 +21,9 @@ If you just a user of the library you can get along with the "venv" program, tha
 For installation introductions on windows with venv please have a look at the next sub section.
 
 ### On Windows with venv:
-0. Please make sure, as already mentioned, you have python3 (>3.10 https://www.python.org/) and inkscape (https://inkscape.org/) installed
+-1. Please make sure, as already mentioned, you have python3 (>3.10 https://www.python.org/) and inkscape (https://inkscape.org/) installed.
+0. Please also make sure to add Inkscape to your windows PATH. To do this please run cmd as administrator with the command ```setx /M "%PATH%;<<path_to_your_incscape_installation>>"```. For example: ```setx /M "%PATH%;C:\Program Files\Inkscape\bin\"```. After that please make sure to **restart your computer** and run ```inkscape -V``` in the command line. That should run sccessfuly and return something like ```Inkscape 1.2.1 (9c6d41e410, 2022-07-14)```.
+If you can't set the 
 1. Clone or download this FST Label Creator git-repository
 2. Please navigate with your command line program inside the folder where this README.md is located (for example with `cd C:\Users\Neumeier\Desktop\fst-label-creator`)
 3. Inside this folder run with the Windows command line "cmd" the command `py -m venv env`. (This will create a virtual environment, that won't mess up your system python installation)
