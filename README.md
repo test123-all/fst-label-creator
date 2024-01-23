@@ -24,7 +24,7 @@ For installation introductions on windows with venv please have a look at the ne
 Introductions:
 
 0. Please make sure, as already mentioned, you have python3 (>3.10 https://www.python.org/) and inkscape (https://inkscape.org/) installed.
-1. Also please make sure to add Inkscape to your windows PATH. To do this please run the ```cmd``` as administrator and run the command 
+1. Also please make sure to add Inkscape to your windows PATH. To do this please run ```cmd``` as administrator and run the command 
     ```
     setx /M "%PATH%;<<path_to_your_incscape_installation>>"
     ```
