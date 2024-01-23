@@ -1,4 +1,5 @@
 import os
+import sys
 from pathlib import Path
 import copy
 import subprocess
@@ -115,7 +116,13 @@ def place_labels_on_DINA4_template(path_for_generated_files: [str, Path],
     cwd = Path.cwd()
     resolved_path = path_for_generated_label_files.resolve()
     os.chdir(str(resolved_path))
+
     # Convert the label pdf to svg
+    
+    if not(sys.platform.startswith('linux') or sys.platform.startswith('win32')):
+        # TODO: FIXME: Find a better error message
+        raise Warning(f"You are running the FST Label Creator on the platform '{sys.platform}', that isn't tested yet. Please write the maintainers an email and share your findings with them to improve this software product. Thank You.")
+
     for item in resolved_path.glob('*.pdf'):
         subprocess.run(['inkscape', '--export-type=svg', f'--export-filename={item.stem}.svg', f'{item.stem}.pdf'])
     os.chdir(str(cwd))
