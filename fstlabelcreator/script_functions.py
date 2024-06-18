@@ -97,7 +97,12 @@ def generate_sensor_pID_label_sites_from_excel_sheets(path_for_generated_files: 
                     return input_as_float
 
             # Build the data dict
-            data_dict = {'internal_id': row['Ident-Nummer'],
+            if str(row['Ident-Nummer']) == 'nan':
+                internal_id = '-'
+            else:
+                internal_id = row['Ident-Nummer']
+
+            data_dict = {'internal_id': internal_id,
                          'product_name': f'{row["Hersteller"]} {row["Bezeichnung"]}',
                          'measurement_range':
                                 f'{_format_read_numbers_to_float_or_int(row["Messbereich von"])} - {_format_read_numbers_to_float_or_int(row["Messbereich bis"])} {row["Messbereich Einheit"]}',
