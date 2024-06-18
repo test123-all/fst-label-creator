@@ -159,39 +159,58 @@ def generate_label_sites_from_excel_sheets(path_for_generated_files: [str, Path]
 
     # Create the sub directories of not already present
     try:
-        labels_directory_path.mkdir()
+        labels_directory_path.mkdir(parents=True)
     except FileExistsError:
         pass
 
     try:
-        qr_codes_directory_path.mkdir()
+        qr_codes_directory_path.mkdir(parents=True)
     except FileExistsError:
         pass
 
     # Load the excel sheet
     df = pd.read_excel(f'{Path(path_to_text_excel_sheet)}', sheet_name='Sheet1')
+    data_dict = df.to_dict(orient='records')
+    data_dict_without_doubles = []
+    for item in data_dict:
+        if item in data_dict_without_doubles:
+            continue
+        else:
+            data_dict_without_doubles.append(item)
 
     # Generate a QR-Code and label for every line in the excel table
-    for i, item in enumerate(df['ID']):
-        # TODO: remove the variables
-        input_text = df['ID'][i]
-        heading = df['heading'][i]
+    for item in data_dict_without_doubles:
+        counter = 0
+        while True:
+            try:
+                data_dict.remove(item)
+            except ValueError:
+                break
 
-        # TODO: Is a parsing function viable to have more control over the formatting?
-        file_name = df["heading"][i]
-	# FIXME: TODO: That 'heading' fields can contain a lot of special characters that are forbidden in file names. 
-	# The software throws a weird error in this case. So a parsing function that checks the content of the 'heading'
-	# field and parses it into a accepatable file name needs to be written or it should be implemented that the files
-	# of the single labels follow a standart naming schema..
-        if '<br/>' in file_name:
-            file_name = df["heading"][i].replace('<br/>', '').replace(':', '').replace(',', '').replace('/', '')
+            input_text = item['ID']
+            heading = item['heading']
+            if '"' == heading[0] and '"' == heading[-1]:
+                heading = heading.replace('"', '')
 
-        utilities.generate_text_QR_code_label(input_text= input_text,
-                                              heading_text= heading,
-                                              label_size= supported_template.RECOMMENDED_MAX_LABEL_PRINT_SIZE,
-                                              file_name= file_name,
-                                              qr_code_directoy_path= qr_codes_directory_path,
-                                              label_directory_path= labels_directory_path)
+            # TODO: Is a parsing function viable to have more control over the formatting?
+            file_name = f"{heading}_{counter}"
+            # FIXME: TODO: That 'heading' fields can contain a lot of special characters that are forbidden in file names.
+            # The software throws a weird error in this case. So a parsing function that checks the content of the 'heading'
+            # field and parses it into a accepatable file name needs to be written or it should be implemented that the files
+            # of the single labels follow a standart naming schema..
+            if '<br/>' in file_name\
+                    or '/' in file_name:
+                file_name = file_name.replace('<br/>', '').replace(':', '').replace(',', '').replace('/', '').replace('</b>', '').replace('<b>', '')
+
+            utilities.generate_text_QR_code_label(input_text= input_text,
+                                                  heading_text= heading,
+                                                  label_size= supported_template.RECOMMENDED_MAX_LABEL_PRINT_SIZE,
+                                                  file_name= file_name,
+                                                  qr_code_directoy_path= qr_codes_directory_path,
+                                                  label_directory_path= labels_directory_path)
+
+            counter = counter + 1
+
 
     # Place them on the site when finished
     utilities.place_labels_on_DINA4_template(

@@ -99,6 +99,7 @@ Currently supported are the following templates:
 - If this software should get extended and published in the future add a contributing file and split it in one part for contributing/refactoring code and one for contributing sizes for new templates that should get supported
 - If a CI/CD pipeline is added for this repository and even more URLs should be used in the documentation add a URL checker to check this URLS if they still resolve properly
 - Is a parsing function viable to have more control over the formatting?
+- The ```generate_QR_code(...)```-function outputs a svg file without .svg ending. The user has to set it by herself/himself. Since it is always .svg, set it in the code and check the input from the user. Throw a warning/error (might be discussed) if the user uses a unresolveable '.' and probably tries to force a file format. Unresolveable means: The '.' and '..' are also used to navigate the directory structure and if the can't be resolved into a correct directory path it probably is a user error or the '.' of the file format.
 - Add use cases as examples to this repository
 - Move the supported templates inside their own file(s) or even directory
 - Add a section that describes the used excel sheet format conventions in more detail, that the users know how to use and modify them
@@ -111,9 +112,7 @@ Currently supported are the following templates:
 - Convert the use of pandas to load the excel sheets to openpyxl as it is used in the background anyway to be able to drop pandas as dependency
 - Implement a function that creates directories recurseviely if they shouldn't exist when the user references a save-to location.
 - Make the currently hardcoded persistent namespace (`https://w3id.org/fst/resource/`) inside the `script_functions.py` file a function argument. That will enable users outside the FST to also generate their own sensor labels.
-- The 'generate_label_sites_from_excel_sheets(...)' function takes the content of the 'heading' column as file name. That fields can contain a lot of special characters that are forbidden in file names. The software throws a weird
-error in this case. So a parsing function that checks the content of the 'heading' field and parses it into a accepatable file name needs to be written or it should be implemented that the files of the single labels follow a standart
-naming schema.
+- The 'generate_label_sites_from_excel_sheets(...)' function takes the content of the 'heading' column as file name. That fields can contain a lot of special characters that are forbidden in file names. The software throws a weird error in this case. So a parsing function that checks the content of the 'heading' field and parses it into a accepatable file name needs to be written or it should be implemented that the files of the single labels follow a standart naming schema.
 
 ## Dependencies:
 This python package uses the following third party python packages and software as dependency:
