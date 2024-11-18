@@ -35,9 +35,12 @@ except FileExistsError:
 class Testgenerate_sensor_pID_label_sites_from_excel_sheets(unittest.TestCase):
     # Setup delete all generated files
     def test_generate_sensor_pID_label_sites_from_excel_sheets__00(self):
+        # TODO: Write more tests where the label starts in the default position (position 1) or on another row, where the maximum label
+        #  amount is exceeded and so on.
         script_functions.generate_sensor_pID_label_sites_from_excel_sheets(path_for_generated_files= path_for_generated_files_pID_label_from_excel_sheet,
                                                                            path_to_sensor_excel_sheet= path_to_sensor_excel_sheet,
-                                                                           responsible_WiMi= 'Rexer')
+                                                                           responsible_WiMi= 'Rexer',
+                                                                           label_start_position_number= 3)
 
 class Testgenerate_label_sites_from_excel_sheets(unittest.TestCase):
     # Setup delete all generated files

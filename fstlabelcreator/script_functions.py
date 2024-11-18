@@ -57,7 +57,8 @@ SUPPORTED_TEMPLATES = {
 
 def generate_sensor_pID_label_sites_from_excel_sheets(path_for_generated_files: [str, Path],
                                                       path_to_sensor_excel_sheet: [str, Path],
-                                                      responsible_WiMi: str):
+                                                      responsible_WiMi: str,
+                                                      label_start_position_number: int = 1):
     path_for_generated_qrcode_files: Path = path_for_generated_files / 'qr_codes'
     path_for_generated_label_files: Path = path_for_generated_files / 'labels'
 
@@ -137,12 +138,14 @@ def generate_sensor_pID_label_sites_from_excel_sheets(path_for_generated_files: 
                             measured_start_position= p_ID_sensor_template.MEASURED_START_POSITION,
                             measured_x_distance_per_step= p_ID_sensor_template.MEASURED_x_DISTANCE_PER_STEP,
                             measured_y_distance_per_step= p_ID_sensor_template.MEASURED_y_DISTANCE_PER_STEP,
-                            target_label_size= (3.35 * cm, 1.5 * cm))
+                            target_label_size= (3.35 * cm, 1.5 * cm),
+                            start_position_number=label_start_position_number)
 
 
 def generate_label_sites_from_excel_sheets(path_for_generated_files: [str, Path],
                                            path_to_text_excel_sheet: [str, Path],
-                                           supported_template: SupportedTemplate):
+                                           supported_template: SupportedTemplate,
+                                           label_start_position_number: int = 1):
 
     # Check if the template is supported
     found_supported_template_flag = 0
@@ -221,5 +224,6 @@ def generate_label_sites_from_excel_sheets(path_for_generated_files: [str, Path]
                             measured_start_position= supported_template.MEASURED_START_POSITION,
                             measured_x_distance_per_step= supported_template.MEASURED_x_DISTANCE_PER_STEP,
                             measured_y_distance_per_step= supported_template.MEASURED_y_DISTANCE_PER_STEP,
-                            target_label_size= supported_template.RECOMMENDED_MAX_LABEL_PRINT_SIZE)
+                            target_label_size= supported_template.RECOMMENDED_MAX_LABEL_PRINT_SIZE,
+                            start_position_number=label_start_position_number)
 

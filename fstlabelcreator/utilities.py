@@ -112,7 +112,8 @@ def place_labels_on_DINA4_template(path_for_generated_files: [str, Path],
                                    measured_start_position: tuple,
                                    measured_x_distance_per_step: float,
                                    measured_y_distance_per_step: float,
-                                   target_label_size: tuple):
+                                   target_label_size: tuple,
+                                   start_position_number: int = 1):
     cwd = Path.cwd()
     resolved_path = path_for_generated_label_files.resolve()
     os.chdir(str(resolved_path))
@@ -138,6 +139,25 @@ def place_labels_on_DINA4_template(path_for_generated_files: [str, Path],
     column_position_counter: int = 1
     seiten_counter: int = 1
 
+    # Set the label row_position_counter and column_position_counter accordingly top the position that the labels should
+    # start on the side.
+    MAXIMUM_AMOUNT_OF_LABELS = row_max_label_count * column_max_label_count
+    if start_position_number > MAXIMUM_AMOUNT_OF_LABELS:
+        # TODO: Find a better suiting exception.
+        raise Exception(f'The following label start position was declared: {start_position_number}\n'
+                        f'But the chosen label template only contains: {MAXIMUM_AMOUNT_OF_LABELS} labels.\n'
+                        f'Please make sure that the start_position_number of the first label is smaller than the '
+                        f'amount of labels of the template that it will be possible to place labels.')
+
+    # Calculate the start label position.
+    for _ in range(start_position_number - 1):
+        if column_position_counter > column_max_label_count:
+            column_position_counter = 1
+            row_position_counter += 1
+
+        column_position_counter += 1
+
+    # Create the canvas and sort the label names that they will be printed on the page in order.
     canvas = Canvas(f'{path_for_generated_files}/seite{seiten_counter}.pdf', pagesize=DINA4_SITE_SIZE)
     converted_svg_labels_list: list = list(resolved_path.glob('*.svg'))
     converted_svg_labels_list.sort()
