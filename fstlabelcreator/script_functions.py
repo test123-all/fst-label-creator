@@ -73,7 +73,7 @@ def generate_sensor_pID_label_sites_from_excel_sheets(path_for_generated_files: 
         pass
 
 
-    SHEET_NAMES = ['Druck', 'Weg', 'Kraft', 'Temperatur'] # 'Beschleunigung'
+    SHEET_NAMES = ['Druck', 'Weg', 'Kraft', 'Temperatur', 'Volumenstrom', 'Leistung'] # 'Beschleunigung'
 
     # Load the excel sheet
     for sheet in SHEET_NAMES:
