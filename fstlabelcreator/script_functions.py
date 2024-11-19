@@ -101,7 +101,7 @@ def generate_sensor_pID_label_sites_from_excel_sheets(path_for_generated_files: 
                          'product_name': f'{row["Hersteller"]} {row["Bezeichnung"]}',
                          'measurement_range':
                                 f'{_format_read_numbers_to_float_or_int(row["Messbereich von"])} - {_format_read_numbers_to_float_or_int(row["Messbereich bis"])} {row["Messbereich Einheit"]}',
-                         'voltage_range':
+                         'output_range':
                                 f'{_format_read_numbers_to_float_or_int(row["Ausgabebereich von"])} - {_format_read_numbers_to_float_or_int(row["Ausgabebereich bis"])} {row["Ausgabebereich Einheit"]}',
                          'p_id': f'https://w3id.org/fst/resource/{row["uuid"]}'
              }

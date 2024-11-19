@@ -75,11 +75,21 @@ def generate_pID_QR_code_label(label_file_path:[str,Path], qr_code_file_path:[st
     #                          drawing.height * 1,
     #                          drawing.height - h_heading - (drawing.height * percentual_padding))
 
-    input_text = (f'<b>{data_dict["internal_id"]} </b><br/>'
-                  f'{data_dict["product_name"]} <br/>'
-                  f'measm. range: &nbsp; {data_dict["measurement_range"]} <br/>'
-                  f'volt. range: &nbsp; {data_dict["voltage_range"]} <br/>'
-                  )
+    if 'V' in data_dict["output_range"]:
+        input_text = (f'<b>{data_dict["internal_id"]} </b><br/>'
+                      f'{data_dict["product_name"]} <br/>'
+                      f'measm. range: &nbsp; {data_dict["measurement_range"]} <br/>'
+                      f'volt. range: &nbsp; {data_dict["output_range"]} <br/>'
+                      )
+    elif 'A' in data_dict["output_range"]:
+        input_text = (f'<b>{data_dict["internal_id"]} </b><br/>'
+                      f'{data_dict["product_name"]} <br/>'
+                      f'measm. range: &nbsp; {data_dict["measurement_range"]} <br/>'
+                      f'amper. range: &nbsp; {data_dict["output_range"]} <br/>'
+                      )
+    else:
+        raise Exception(f"The used unit in {data_dict['output_range']} isn't supported yet. Please contact the maintainers.")
+
     text_paragraph = Paragraph(input_text, normal_style, bulletText=None, frags=None, caseSensitive=1,
                                encoding='utf8')
     padding_length_in_points = LABEL_SIZE[1] * PADDING_FACTOR
