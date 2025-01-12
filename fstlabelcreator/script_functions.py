@@ -1,12 +1,11 @@
-import math
 from pathlib import Path
 
-import numpy as np
 from reportlab.lib.units import cm
 import pandas as pd
 
-from fstlabelcreator import utilities
+from . import utilities
 
+# TODO: FIXME: Maybe move the supported templates into their own python file.
 class SupportedTemplate:
     def __init__(self,
                  LABEL_SIZE,
@@ -59,10 +58,12 @@ def generate_sensor_pID_label_sites_from_excel_sheets(path_for_generated_files: 
                                                       path_to_sensor_excel_sheet: [str, Path],
                                                       responsible_WiMi: str,
                                                       label_start_position_number: int = 1):
+    # TODO:FIXME: This is a hardcoded function that only works for sensors from sensor Excel tables. Maybe there is a
+    #  way to somehow generalize this function.
     path_for_generated_qrcode_files: Path = path_for_generated_files / 'qr_codes'
     path_for_generated_label_files: Path = path_for_generated_files / 'labels'
 
-    # Create the directories if they are not already present
+    # Create the directories if they are not already present.
     try:
         path_for_generated_qrcode_files.mkdir()
     except FileExistsError:
@@ -73,14 +74,14 @@ def generate_sensor_pID_label_sites_from_excel_sheets(path_for_generated_files: 
     except FileExistsError:
         pass
 
-
+    # TODO: Currently the sheet names could be necessary to check for special columns.
     SHEET_NAMES = ['Druck', 'Weg', 'Kraft', 'Temperatur', 'Volumenstrom', 'Leistung'] # 'Beschleunigung'
 
-    # Load the excel sheet
+    # Load and process the Excel sheets.
     for sheet in SHEET_NAMES:
         df = pd.read_excel(f"{Path(path_to_sensor_excel_sheet)}", sheet_name=sheet)
         for index, row in df.iterrows():
-            # If the responsible_WiMi isn't as expected continue with the next entry
+            # If the responsible_WiMi isn't as expected continue with the next entry.
             if row['Verantwortlicher WiMi'] != responsible_WiMi:
                 continue
 
@@ -97,7 +98,7 @@ def generate_sensor_pID_label_sites_from_excel_sheets(path_for_generated_files: 
                 else:
                     return input_as_float
 
-            # Build the data dict
+            # Build the data dict.
             if str(row['Ident-Nummer']) == 'nan':
                 internal_id = '-'
             else:
@@ -112,7 +113,8 @@ def generate_sensor_pID_label_sites_from_excel_sheets(path_for_generated_files: 
                          'p_id': f'https://w3id.org/fst/resource/{row["uuid"]}'
              }
 
-            # Add "abs/rel" at the end of the measurement_range in case of pressure sensors
+            # TODO: Hardcoded edge case, is there a better way to handle
+            # Add "abs/rel" at the end of the measurement_range in case of pressure sensors.
             if sheet == 'Druck':
                 absolute_relative_string = ''
                 if str(row["absolut/ relativ"]) != 'nan':
@@ -120,11 +122,11 @@ def generate_sensor_pID_label_sites_from_excel_sheets(path_for_generated_files: 
 
                 data_dict['measurement_range'] = f'{data_dict["measurement_range"]} ({absolute_relative_string})'
 
-            # Name the file after the uuid
+            # Name the file after the uuid.
             qr_code_file_path: Path = Path(path_for_generated_qrcode_files / f'{row["uuid"]}.svg')
             label_file_path: Path = Path(path_for_generated_label_files / f'{row["uuid"]}.pdf')
 
-            # Generate the QR code and the QR code label
+            # Generate the QR code and the QR code label.
             utilities.generate_QR_code(data_dict['p_id'], qr_code_file_path)
             utilities.generate_pID_QR_code_label(label_file_path, qr_code_file_path, data_dict)
 
@@ -147,7 +149,7 @@ def generate_label_sites_from_excel_sheets(path_for_generated_files: [str, Path]
                                            supported_template: SupportedTemplate,
                                            label_start_position_number: int = 1):
 
-    # Check if the template is supported
+    # Check if the template is supported.
     found_supported_template_flag = 0
     for key in SUPPORTED_TEMPLATES.keys():
         if supported_template is SUPPORTED_TEMPLATES[key]:
@@ -160,7 +162,7 @@ def generate_label_sites_from_excel_sheets(path_for_generated_files: [str, Path]
     qr_codes_directory_path: Path = Path(f'{path_for_generated_files}/_QR_codes/')
     labels_directory_path: Path = Path(f'{path_for_generated_files}/labels/')
 
-    # Create the sub directories of not already present
+    # Create the subdirectories if not already present.
     try:
         labels_directory_path.mkdir(parents=True)
     except FileExistsError:
@@ -171,7 +173,7 @@ def generate_label_sites_from_excel_sheets(path_for_generated_files: [str, Path]
     except FileExistsError:
         pass
 
-    # Load the excel sheet
+    # Load the Excel sheet.
     df = pd.read_excel(f'{Path(path_to_text_excel_sheet)}', sheet_name='Sheet1')
     data_dict = df.to_dict(orient='records')
     data_dict_without_doubles = []
@@ -181,7 +183,7 @@ def generate_label_sites_from_excel_sheets(path_for_generated_files: [str, Path]
         else:
             data_dict_without_doubles.append(item)
 
-    # Generate a QR-Code and label for every line in the excel table
+    # Generate a QR-Code and label for every line in the Excel table.
     for item in data_dict_without_doubles:
         counter = 0
         while True:
@@ -197,10 +199,10 @@ def generate_label_sites_from_excel_sheets(path_for_generated_files: [str, Path]
 
             # TODO: Is a parsing function viable to have more control over the formatting?
             file_name = f"{heading}_{counter}"
-            # FIXME: TODO: That 'heading' fields can contain a lot of special characters that are forbidden in file names.
-            # The software throws a weird error in this case. So a parsing function that checks the content of the 'heading'
-            # field and parses it into a accepatable file name needs to be written or it should be implemented that the files
-            # of the single labels follow a standart naming schema..
+            # FIXME: TODO: That 'heading' fields can contain a lot of special characters that are forbidden in file
+            #  names. The software throws a weird error in this case. So a parsing function that checks the content
+            #  of the 'heading' field and parses it into a acceptable file name needs to be written or it should be
+            #  implemented that the files of the single labels follow a standard naming schema.
             if '<br/>' in file_name\
                     or '/' in file_name:
                 file_name = file_name.replace('<br/>', '').replace(':', '').replace(',', '').replace('/', '').replace('</b>', '').replace('<b>', '')
@@ -209,13 +211,13 @@ def generate_label_sites_from_excel_sheets(path_for_generated_files: [str, Path]
                                                   heading_text= heading,
                                                   label_size= supported_template.RECOMMENDED_MAX_LABEL_PRINT_SIZE,
                                                   file_name= file_name,
-                                                  qr_code_directoy_path= qr_codes_directory_path,
+                                                  qr_code_directory_path= qr_codes_directory_path,
                                                   label_directory_path= labels_directory_path)
 
             counter = counter + 1
 
 
-    # Place them on the site when finished
+    # Place the created labels on the site.
     utilities.place_labels_on_DINA4_template(
                             path_for_generated_files= path_for_generated_files,
                             path_for_generated_label_files= labels_directory_path,
