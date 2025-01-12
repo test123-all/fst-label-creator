@@ -47,7 +47,7 @@ class TestGenerateQRCodeLabel(unittest.TestCase):
         data_dict = {'internal_id': 'D092',
                      'product_name': 'Keller PAA',
                      'measurement_range': '0 - 10 bar (a)',
-                     'voltage_range': '0 - 10 V',
+                     'output_range': '0 - 10 V',
                      'p_id': 'https://w3id.org/fst/resource/0184ebd9-988b-7bba-8203-06be5cf6bbb8'
                     }
 
